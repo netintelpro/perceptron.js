@@ -16,7 +16,8 @@ function activation(summation,threshold ){
 }
 
 function forwardPass(inputs, weights,threshold){
-  var summation = dotProduct(inputs, weights);
+  var bias_index = weights.length - 1;
+  var summation = dotProduct(inputs, weights) + weights[bias_index];
   var output = activation(summation,threshold);
   return output;
 }
@@ -28,12 +29,15 @@ function calculateError(target,actual){
 }
 
 function adjustWeights(inputs, weights,learningRate,error) {
+
  for (var i = 0; i < inputs.length; i++) {
  	var new_weight =  learningRate * error * inputs[i];	
  	//console.log("learningRate: "+learningRate+" error: "+error+" inputs["+i+"]: "+inputs[i]+ " new_weight: "+new_weight);
 
  	weights[i] += new_weight;	
   }
+  var bias_index = weights.length - 1;
+  weights[bias_index] += learningRate * error
   return weights;
 }
 function display(inputs,weights,output,error){
@@ -70,7 +74,7 @@ function trial(trainingSet, weights, learningRate,threshold,trials){
 
 
 var learningRate = 0.01;
-var trials = 10;
+var trials = 100;
 var threshold = 0;
 
 var andTrainingSet = {
@@ -86,8 +90,9 @@ var andTrainingSet = {
   ],
   target:[0,1,1,1]
   };
-  
-var initialWeights = [0,0];
+  //third array value is bias and not weight
+  //https://stackoverflow.com/questions/46189617/perceptron-for-or-function-doesnt-converge
+var initialWeights = [0,0,0];
 
 //var finalAndWeights = trial(andTrainingSet, initialWeights, learningRate,threshold,trials);
 //var finalOrWeights  = trial(orTrainingSet,  initialWeights, learningRate,threshold,trials); 
