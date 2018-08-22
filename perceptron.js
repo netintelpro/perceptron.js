@@ -30,7 +30,7 @@ function calculateError(target,actual){
 function adjustWeights(inputs, weights,learningRate,error) {
  for (var i = 0; i < inputs.length; i++) {
  	var new_weight =  learningRate * error * inputs[i];	
- 	console.log("learningRate: "+learningRate+" error: "+error+" inputs["+i+"]: "+inputs[i]+ " new_weight: "+new_weight);
+ 	//console.log("learningRate: "+learningRate+" error: "+error+" inputs["+i+"]: "+inputs[i]+ " new_weight: "+new_weight);
 
  	weights[i] += new_weight;	
   }
@@ -42,17 +42,19 @@ function display(inputs,weights,output,error){
 function learn(inputs,target, weights, learningRate,threshold){
   var output = forwardPass(inputs, weights,threshold);
   var error  = calculateError(target,output); 
-  weights = adjustWeights(inputs, weights, learningRate,error);
-  //display(inputs,weights,output,error);
-  return weights;
+  var new_weights = adjustWeights(inputs, weights, learningRate,error);
+  console.log('Input: '+JSON.stringify(inputs)+ ' Weights: '+JSON.stringify(weights)+ ' Output: '+output+ ' Target: '+ target+' Error: '+error);
+  return new_weights;
   
 }
 
 function epoch(trainingSet, weights, learningRate,threshold){
+  console.log('epoch');
   for(var i = 0; i < trainingSet.inputs.length; i++){
-  	//console.log("    "+JSON.stringify(weights));
 
     weights = learn(trainingSet.inputs[i], trainingSet.target[i], weights, learningRate,threshold);
+
+
   }
   return weights;
 }
@@ -60,7 +62,6 @@ function epoch(trainingSet, weights, learningRate,threshold){
 function trial(trainingSet, weights, learningRate,threshold,trials){
 
   for(var i=0; i < trials; i++){
-	 // 	console.log(JSON.stringify(weights));
 
     weights = epoch(trainingSet, weights, learningRate,threshold); 
   }
@@ -74,19 +75,19 @@ var threshold = 0;
 
 var andTrainingSet = {
   inputs: [
-    [0,0,1],[1,0,1],[0,1,1],[1,1,1]
+    [0,0],[1,0],[0,1],[1,1]
   ],
   target:[0,0,0,1]
   };
 
  var orTrainingSet = {
   inputs: [
-    [0,0,1],[1,0,1],[0,1,1],[1,1,1]
+    [0,0],[1,0],[0,1],[1,1]
   ],
   target:[0,1,1,1]
   };
   
-var initialWeights = [0,0,0];
+var initialWeights = [0,0];
 
 //var finalAndWeights = trial(andTrainingSet, initialWeights, learningRate,threshold,trials);
 //var finalOrWeights  = trial(orTrainingSet,  initialWeights, learningRate,threshold,trials); 
