@@ -4,7 +4,8 @@ function dotProduct(vectorA, vectorB){
   for (index = 0; index < vectorA.length; index++){
     sum += vectorA[index] * vectorB[index];
   }
-  return sum.toFixed(2);
+  //return sum.toFixed(2);
+  return sum;
 }
 
 function activation(summation,threshold ){
@@ -75,7 +76,7 @@ function trial(trainingSet, weights, learningRate,threshold,trials){
 
 var learningRate = 0.01;
 var trials = 100;
-var threshold = 0;
+var threshold = 0.00;
 
 var andTrainingSet = {
   inputs: [
