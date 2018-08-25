@@ -4,7 +4,6 @@ function dotProduct(vectorA, vectorB){
   for (index = 0; index < vectorA.length; index++){
     sum += vectorA[index] * vectorB[index];
   }
-  //return sum.toFixed(2);
   return sum;
 }
 
@@ -33,41 +32,35 @@ function adjustWeights(inputs, weights,learningRate,error) {
 
  for (var i = 0; i < inputs.length; i++) {
  	var new_weight =  learningRate * error * inputs[i];	
- 	//console.log("learningRate: "+learningRate+" error: "+error+" inputs["+i+"]: "+inputs[i]+ " new_weight: "+new_weight);
-
  	weights[i] += new_weight;	
   }
   var bias_index = weights.length - 1;
   weights[bias_index] += learningRate * error
   return weights;
 }
+
 function display(inputs,weights,output,error){
 	console.log('Input: '+JSON.stringify(inputs)+ ' Weights: '+JSON.stringify(weights)+ ' Output: '+output+ ' Error: '+error);
 }
+
 function learn(inputs,target, weights, learningRate,threshold){
   var output = forwardPass(inputs, weights,threshold);
   var error  = calculateError(target,output); 
   var new_weights = adjustWeights(inputs, weights, learningRate,error);
   console.log('Input: '+JSON.stringify(inputs)+ ' Weights: '+JSON.stringify(weights)+ ' Output: '+output+ ' Target: '+ target+' Error: '+error);
-  return new_weights;
-  
+  return new_weights; 
 }
 
 function epoch(trainingSet, weights, learningRate,threshold){
   console.log('epoch');
   for(var i = 0; i < trainingSet.inputs.length; i++){
-
     weights = learn(trainingSet.inputs[i], trainingSet.target[i], weights, learningRate,threshold);
-
-
   }
   return weights;
 }
 
 function trial(trainingSet, weights, learningRate,threshold,trials){
-
   for(var i=0; i < trials; i++){
-
     weights = epoch(trainingSet, weights, learningRate,threshold); 
   }
   return weights;
