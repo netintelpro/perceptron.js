@@ -1,5 +1,5 @@
 
-function dotProduct(vectorA, vectorB){
+function summation(vectorA, vectorB){
   var sum = 0;
   for (index = 0; index < vectorA.length; index++){
     sum += vectorA[index] * vectorB[index];
@@ -17,7 +17,7 @@ function activation(summation,threshold ){
 
 function forwardPass(inputs, weights,threshold){
   var bias_index = weights.length - 1;
-  var summation = dotProduct(inputs, weights) + weights[bias_index];
+  var summation = summation(inputs, weights) + weights[bias_index];
   var output = activation(summation,threshold);
   return output;
 }
