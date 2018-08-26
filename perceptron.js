@@ -1,5 +1,5 @@
 
-function summation(vectorA, vectorB){
+function summationFunction(vectorA, vectorB){
   var sum = 0;
   for (index = 0; index < vectorA.length; index++){
     sum += vectorA[index] * vectorB[index];
@@ -7,7 +7,7 @@ function summation(vectorA, vectorB){
   return sum;
 }
 
-function activation(summation,threshold ){
+function activationFunction(summation,threshold ){
   if (summation > threshold)
     return 1;
   else 
@@ -17,8 +17,8 @@ function activation(summation,threshold ){
 
 function forwardPass(inputs, weights,threshold){
   var bias_index = weights.length - 1;
-  var summation = summation(inputs, weights) + weights[bias_index];
-  var output = activation(summation,threshold);
+  var summation = summationFunction(inputs, weights) + weights[bias_index];
+  var output = activationFunction(summation,threshold);
   return output;
 }
 
