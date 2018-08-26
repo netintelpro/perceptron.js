@@ -31,8 +31,8 @@ function calculateError(target,actual){
 function adjustWeights(inputs, weights,learningRate,error) {
 
  for (var i = 0; i < inputs.length; i++) {
- 	var new_weight =  learningRate * error * inputs[i];	
- 	weights[i] += new_weight;	
+ 	var delta_weight =  learningRate * error * inputs[i];	
+ 	weights[i] += delta_weight;	
   }
   var bias_index = weights.length - 1;
   weights[bias_index] += learningRate * error
@@ -84,6 +84,14 @@ var andTrainingSet = {
   ],
   target:[0,1,1,1]
   };
+
+  var xorTrainingSet  = {
+  inputs: [
+    [0,0],[1,0],[0,1],[1,1]
+  ],
+  target:[0,1,1,0]
+  };
+
   //third array value is bias and not weight
   //https://stackoverflow.com/questions/46189617/perceptron-for-or-function-doesnt-converge
 var initialWeights = [0,0,0];
