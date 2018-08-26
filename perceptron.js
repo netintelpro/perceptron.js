@@ -17,7 +17,7 @@ function activation(summation,threshold ){
 
 function forwardPass(inputs, weights,threshold){
   var bias_index = weights.length - 1;
-  var summation = summation(inputs, weights) + weights[bias_index];
+  var summation = summation(inputs, weights);
   var output = activation(summation,threshold);
   return output;
 }
@@ -34,8 +34,6 @@ function adjustWeights(inputs, weights,learningRate,error) {
  	var new_weight =  learningRate * error * inputs[i];	
  	weights[i] += new_weight;	
   }
-  var bias_index = weights.length - 1;
-  weights[bias_index] += learningRate * error
   return weights;
 }
 
@@ -86,7 +84,7 @@ var andTrainingSet = {
   };
   //third array value is bias and not weight
   //https://stackoverflow.com/questions/46189617/perceptron-for-or-function-doesnt-converge
-var initialWeights = [0,0,0];
+var initialWeights = [0,0];
 
 //var finalAndWeights = trial(andTrainingSet, initialWeights, learningRate,threshold,trials);
 //var finalOrWeights  = trial(orTrainingSet,  initialWeights, learningRate,threshold,trials); 
